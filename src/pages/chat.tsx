@@ -6,12 +6,18 @@ import { connect } from "http2";
 
 const WS_URL = "ws://localhost:9876";
 
+type dataType = {
+  message: string;
+  user: string;
+};
+
 export default function Chat() {
   const [text, setText] = useState("");
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [sendText, setSendText] = useState("");
   const [incomingText, setIncomingText] = useState("");
-  const [dummyText, setDummyText] = useState<string[]>([]);
+  const [dummyText, setDummyText] = useState<dataType[]>([]);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     // Receive message from other clients
@@ -25,18 +31,28 @@ export default function Chat() {
 
     const onTest = (data: any) => {
       console.log(data);
-      setDummyText(prev => [...prev, data.message])
+      setDummyText((prev) => [
+        ...prev,
+        { message: data.message, user: data.user },
+      ]);
       setIncomingText(data.message);
-    }
+    };
+
+    const getId = (id: string) => {
+      console.log(id);
+      setUserId(id);
+    };
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("test", onTest);
+    socket.on("id", getId);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("test", onTest);
+      socket.off("id", getId);
     };
   }, []);
 
@@ -50,9 +66,9 @@ export default function Chat() {
 
   // Send message to server + clients
   const sendMessage = () => {
-    socket.emit("message", { message: text });
+    socket.emit("message", { message: text, user: userId });
     setSendText(text);
-    setDummyText((prev) => [...prev, text]);
+    setDummyText((prev) => [...prev, { message: text, user: userId }]);
   };
 
   return (
@@ -72,9 +88,13 @@ export default function Chat() {
           Send Message
         </Button>
         <ul>
-          {dummyText.map((text) => (
-            <p>{text}</p>
-          ))}
+          {dummyText.map((data) =>
+            data.user === userId ? (
+              <p>{data.message}</p>
+            ) : (
+              <p className="text-red-400">{data.message}</p>
+            )
+          )}
         </ul>
       </div>
     </>
