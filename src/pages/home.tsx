@@ -28,7 +28,11 @@ export default function Home() {
               <p className='text-xl'>Resume</p>
             </Button>
             <Button className="mx-2 lg:bg-custom-primary lg:hover:bg-primary/90">
-              <p className='text-xl'>Project</p>
+              <p className='text-xl'>
+                <Link href='/project'>
+                  Projects
+                </Link>
+              </p>
             </Button>
             <Button className="mx-2 lg:bg-custom-primary lg:hover:bg-primary/90">
               <p className='text-xl'>Contact</p>
