@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import { socket } from "@/lib/socket";
 import { connect } from "http2";
+import MessageBox from "@/components/chatapp/messageBox";
 
 const WS_URL = "ws://localhost:9876";
 
@@ -18,6 +19,7 @@ export default function Chat() {
   const [incomingText, setIncomingText] = useState("");
   const [dummyText, setDummyText] = useState<dataType[]>([]);
   const [userId, setUserId] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     // Receive message from other clients
@@ -30,7 +32,6 @@ export default function Chat() {
     };
 
     const onTest = (data: any) => {
-      console.log(data);
       setDummyText((prev) => [
         ...prev,
         { message: data.message, user: data.user },
@@ -39,7 +40,6 @@ export default function Chat() {
     };
 
     const getId = (id: string) => {
-      console.log(id);
       setUserId(id);
     };
 
@@ -66,9 +66,11 @@ export default function Chat() {
 
   // Send message to server + clients
   const sendMessage = () => {
-    socket.emit("message", { message: text, user: userId });
-    setSendText(text);
-    setDummyText((prev) => [...prev, { message: text, user: userId }]);
+    if (text) {
+      socket.emit("message", { message: text, user: userId });
+      setSendText(text);
+      setDummyText((prev) => [...prev, { message: text, user: userId }]);  
+    }
   };
 
   return (
@@ -83,17 +85,13 @@ export default function Chat() {
           Disconnect
         </Button>
 
-        <input type="text" onChange={(e) => setText(e.target.value)} />
+        <input type="text" onChange={(e) => setText(e.target.value)} ref={inputRef}/>
         <Button className="bg-white text-black" onClick={sendMessage}>
           Send Message
         </Button>
         <ul>
           {dummyText.map((data) =>
-            data.user === userId ? (
-              <p>{data.message}</p>
-            ) : (
-              <p className="text-red-400">{data.message}</p>
-            )
+            <MessageBox data={data} userId={userId}/>
           )}
         </ul>
       </div>
