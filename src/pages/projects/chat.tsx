@@ -91,7 +91,7 @@ export default function Chat() {
         </Button>
         <ul>
           {dummyText.map((data) =>
-            <MessageBox data={data} userId={userId}/>
+            <MessageBox key={userId} data={data} userId={userId}/>
           )}
         </ul>
       </div>

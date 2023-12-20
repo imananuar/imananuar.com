@@ -90,9 +90,9 @@ export default function Chat() {
         <ul>
           {dummyText.map((data) =>
             data.user === userId ? (
-              <p>{data.message}</p>
+              <p key={userId}>{data.message}</p>
             ) : (
-              <p className="text-red-400">{data.message}</p>
+              <p key={userId} className="text-red-400">{data.message}</p>
             )
           )}
         </ul>
