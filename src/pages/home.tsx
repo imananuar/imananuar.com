@@ -29,7 +29,7 @@ export default function Home() {
             </Button>
             <Button className="mx-2 lg:bg-custom-primary lg:hover:bg-primary/90">
               <p className='text-xl'>
-                <Link href='/project'>
+                <Link href='/projects'>
                   Projects
                 </Link>
               </p>

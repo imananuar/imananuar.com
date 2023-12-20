@@ -4,10 +4,6 @@ export default function MessageBox({ data, userId }: any) {
   // data.user === userId -> if user is sender
 
   const messageBoxStyle = {
-    // style:
-    // condition
-    //  ? senderStyle
-    //  : receiverStyle
     align: data.user === userId ? "ml-4 ml-auto text-right items-end" : "",
     border:
       data.user === userId
