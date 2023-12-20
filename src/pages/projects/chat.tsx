@@ -5,7 +5,7 @@ import { socket } from "@/lib/socket";
 import { connect } from "http2";
 import MessageBox from "@/components/chatapp/messageBox";
 
-const WS_URL = "ws://localhost:9876";
+const WS_URL = "https://ws.imananuar.com";
 
 type dataType = {
   message: string;
