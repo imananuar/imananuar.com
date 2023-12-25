@@ -4,8 +4,6 @@ import useWebSocket from "react-use-websocket";
 import { socket } from "@/lib/socket";
 import { connect } from "http2";
 
-const WS_URL = "ws://localhost:9876";
-
 type dataType = {
   message: string;
   user: string;
