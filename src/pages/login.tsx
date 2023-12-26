@@ -5,6 +5,8 @@ import { FormEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"
 import dynamic from 'next/dynamic';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import LoginAPI from "./api/auth";
 
 export default function Login() {
 
@@ -13,41 +15,33 @@ export default function Login() {
     const form = useForm<FieldValues>();
     const { register, control, handleSubmit, formState } = useForm<FieldValues>();
     const { errors } = formState;
+    const queryClient = useQueryClient();
 
     const DevT: React.ElementType = dynamic(
         () => import('@hookform/devtools').then((module) => module.DevTool),
         { ssr: false }
     );
 
-    async function testSubmit(payload: FieldValues) {
-        try {
-            const response = await fetch("http://localhost:8000/api/auth/login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                  },                  
-                body: JSON.stringify({
-                    username: "imananuar",
-                    password: "iman33"
-                })
-            })
-
-            if (!response.ok) { 
-                throw new Error("Failed to submit the data. Please try again");
-            }
-
-            const data = await response.json()
-        } catch (error) {
-            // setError(error.message);
+    const login = useMutation({
+        mutationFn: LoginAPI,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError(error, variables, context) {
+            console.log("okay salah")
             console.log(error)
-        }
+        },
+    })
+
+    async function callLoginAPI(payload: FieldValues) {
+        login.mutateAsync({ payload });
     }
 
     return (
         <>
             <div>
                 <Form {...form}>
-                    <form onSubmit={handleSubmit(testSubmit)} >
+                    <form onSubmit={handleSubmit(callLoginAPI)} >
                         <FormField
                         control={form.control}
                         name="username"
@@ -79,7 +73,9 @@ export default function Login() {
                                         type="password"
                                         placeholder="password" 
                                         {...field} 
-                                        {...register("password")}
+                                        {...register("password", {
+                                            required: "Password is required!"
+                                        })}
                                         />
                                     </FormControl>
                                 {/* <FormDescription>This is your public display name.</FormDescription> */}
