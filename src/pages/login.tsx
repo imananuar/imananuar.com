@@ -1,21 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools"
 import dynamic from 'next/dynamic';
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import LoginAPI from "./api/auth";
+import { useRouter } from "next/router";
+import { HttpResponse } from "@/dto/http-response.dto";
+import { LoginResponse } from "@/dto/auth.dto";
+import { useCookies } from 'react-cookie';
+
 
 export default function Login() {
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    // const [error, setError] = useState<string | null>(null)
     const form = useForm<FieldValues>();
     const { register, control, handleSubmit, formState } = useForm<FieldValues>();
-    const { errors } = formState;
-    const queryClient = useQueryClient();
+    const router = useRouter();
+    const [cookies, setCookie] = useCookies(['access_token']);
+
+    useEffect(() => {
+        !!cookies.access_token ? router.push("/projects/main") : null
+    }, [cookies])
 
     const DevT: React.ElementType = dynamic(
         () => import('@hookform/devtools').then((module) => module.DevTool),
@@ -24,8 +29,13 @@ export default function Login() {
 
     const login = useMutation({
         mutationFn: LoginAPI,
-        onSuccess: (data) => {
-            console.log(data);
+        onSuccess: (response: HttpResponse<LoginResponse>) => {
+            if (response.statusCode === 201) {
+                setCookie('access_token', response.data.accessToken)
+                router.push("/projects/main");
+            } else {
+                alert("Incorrect username / password. Please try again.");
+            }
         },
         onError(error, variables, context) {
             console.log("okay salah")
