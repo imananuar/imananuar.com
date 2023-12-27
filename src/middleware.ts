@@ -23,12 +23,10 @@ export default async function authMiddleware(req: NextRequest) {
             })
             .then(response => response.json())
             .then((responseData: HttpResponse<LoginResponse>) => {
-                if (responseData.statusCode === 201 && responseData.data.accessToken !== undefined && responseData.data.refreshToken !== undefined) {
-                    const accessExpiryTime = new Date(jwtDecode(responseData.data.accessToken).exp! * 1000 );
-                    const refreshExpiryTime = new Date(jwtDecode(responseData.data.refreshToken).exp! * 1000 );
-                    nextResponse.cookies.set("access_token", responseData.data.accessToken, { expires: accessExpiryTime });
-                    nextResponse.cookies.set("refresh_token", responseData!.data.refreshToken, { expires: refreshExpiryTime });
-                }
+                const accessExpiryTime = new Date(jwtDecode(responseData.data.accessToken).exp! * 1000 );
+                const refreshExpiryTime = new Date(jwtDecode(responseData.data.refreshToken).exp! * 1000 );
+                nextResponse.cookies.set("access_token", responseData.data.accessToken, { expires: accessExpiryTime });
+                nextResponse.cookies.set("refresh_token", responseData!.data.refreshToken, { expires: refreshExpiryTime });
             })
             .catch(error => console.error(error))
     }
