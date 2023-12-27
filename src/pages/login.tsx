@@ -31,7 +31,7 @@ export default function Login() {
     const login = useMutation({
         mutationFn: LoginAPI,
         onSuccess: (response: HttpResponse<LoginResponse>) => {
-            if (response.statusCode === 201) {
+            if (response.statusCode === 201 && response.data.accessToken !== undefined && response.data.refreshToken !== undefined) {
                 const accessExpiryTime = new Date(jwtDecode(response.data.accessToken).exp * 1000 );
                 const refreshExpiryTime = new Date(jwtDecode(response.data.refreshToken).exp * 1000 );
                 setCookie('access_token', response.data.accessToken, { expires: accessExpiryTime })
