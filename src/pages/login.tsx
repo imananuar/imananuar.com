@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import dynamic from 'next/dynamic';
 import { useMutation } from "@tanstack/react-query";
-import LoginAPI from "./api/auth";
 import { useRouter } from "next/router";
 import { HttpResponse } from "@/dto/http-response.dto";
 import { LoginResponse } from "@/dto/auth.dto";
 import { useCookies } from 'react-cookie';
 import { jwtDecode } from "jwt-decode";
+import { LoginAPI } from "./api/auth";
 
 
 export default function Login() {
@@ -27,14 +27,6 @@ export default function Login() {
         () => import('@hookform/devtools').then((module) => module.DevTool),
         { ssr: false }
     );
-
-    const dateFormat = (timestamp: number | undefined) => {
-
-        if (typeof(timestamp) === "number") {
-            // Create a new Date object using the milliseconds
-            const date = new Date(timestamp * 1000 * 1000);
-        }
-    }
 
     const login = useMutation({
         mutationFn: LoginAPI,
