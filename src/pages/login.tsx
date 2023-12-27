@@ -41,7 +41,7 @@ export default function Login() {
                 alert("Incorrect username / password. Please try again.");
             }
         },
-        onError(error, variables, context) {
+        onError(error) {
             console.log("okay salah")
             console.log(error)
         },

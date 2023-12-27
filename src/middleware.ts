@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export default async function authMiddleware(req: NextRequest, event: NextFetchEvent) {
+export default async function authMiddleware(req: NextRequest) {
 
     const refreshToken: string = req.cookies.get('refresh_token')?.value!
     const nextResponse = NextResponse.next();
