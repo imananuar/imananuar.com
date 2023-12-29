@@ -10,7 +10,7 @@ import { HttpResponse } from "@/dto/http-response.dto";
 import { LoginResponse } from "@/dto/auth.dto";
 import { useCookies } from 'react-cookie';
 import { jwtDecode } from "jwt-decode";
-import { LoginAPI } from "./api/auth";
+import { loginAPI } from "@/api/auth/loginAPI";
 
 
 export default function Login() {
@@ -28,9 +28,12 @@ export default function Login() {
         { ssr: false }
     );
 
-    const login = useMutation({
-        mutationFn: LoginAPI,
-        onSuccess: (response: HttpResponse<LoginResponse>) => {
+    
+
+    const loginMutation = useMutation({
+        mutationFn: loginAPI,
+        onSuccess: (response) => {
+            console.log(response);
             if (response.statusCode === 201) {
                 const accessExpiryTime = new Date(jwtDecode(response.data.accessToken).exp! * 1000 );
                 const refreshExpiryTime = new Date(jwtDecode(response.data.refreshToken).exp! * 1000 );
@@ -48,7 +51,7 @@ export default function Login() {
     })
 
     async function callLoginAPI(payload: FieldValues) {
-        login.mutateAsync({ payload });
+        loginMutation.mutateAsync({ payload });
     }
 
     return (
