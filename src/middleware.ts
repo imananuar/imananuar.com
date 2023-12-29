@@ -16,10 +16,15 @@ export default async function authMiddleware(req: NextRequest) {
             return NextResponse.redirect(`${req.nextUrl.origin}/login`)
         }
         const responseData: HttpResponse<LoginResponse> = await updateTokenAPI(refreshToken);
-        const accessExpiryTime = new Date(jwtDecode(responseData.data.accessToken).exp! * 1000 );
-        const refreshExpiryTime = new Date(jwtDecode(responseData.data.refreshToken).exp! * 1000 );
-        nextResponse.cookies.set("access_token", responseData.data.accessToken, { expires: accessExpiryTime });
-        nextResponse.cookies.set("refresh_token", responseData!.data.refreshToken, { expires: refreshExpiryTime });
+
+        try {
+            const accessExpiryTime = new Date(jwtDecode(responseData.data.accessToken).exp! * 1000 );
+            const refreshExpiryTime = new Date(jwtDecode(responseData.data.refreshToken).exp! * 1000 );
+            nextResponse.cookies.set("access_token", responseData.data.accessToken, { expires: accessExpiryTime });
+            nextResponse.cookies.set("refresh_token", responseData!.data.refreshToken, { expires: refreshExpiryTime });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return nextResponse
