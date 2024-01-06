@@ -15,7 +15,7 @@ module.exports = {
         "2xl": "1400px",
       },
       fontFamily: {
-        'japan': ["'Sawarabi Mincho'"]
+        'japan': ["'Sawarabi Mincho'"],
       }
     },
     extend: {
@@ -79,6 +79,10 @@ module.exports = {
       backgroundImage: {
         'iman': "url('/iman.jpg')",
       },
+      fontFamily: {
+        'zeyada': "Zeyada",
+        'primary': "Quicksand"
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

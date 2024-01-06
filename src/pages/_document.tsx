@@ -4,7 +4,10 @@ import { ThemeProvider } from "@/components/theme-provider"
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <meta name="description" content="Portfolio website for Iman Anuar" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Zeyada&display=swap" rel="stylesheet" />
+      </Head>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Main />

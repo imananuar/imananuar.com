@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-    <div className="flex h-screen lg:bg-none bg text-black lg:text-white border border-blue-400 bg-white">
+    <div className="flex h-screen lg:bg-none bg text-black border border-blue-400 bg-white">
       {/* <div className='mx-auto flex justify-center lg:w-full lg:h-screen lg:grid lg:grid-cols-3'>
         <div className='lg:m-auto lg:col-span-2 lg:w-3/5 grid grid-rows-4 lg:grid-rows-none'>
           <div></div>

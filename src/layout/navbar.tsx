@@ -31,8 +31,8 @@ export default function Sidebar() {
                     </div>
                 </div>
             </nav>
-            <div className="border border-green-400 my-auto ">
-                <a onClick={() => setIsCollapse(!isCollapse)}>Icon Arrow</a>
+            <div className="border border-green-400 my-auto cursor-pointer font-zeyada" onClick={() => setIsCollapse(!isCollapse)}>
+                <a className="font-zeyada">Icon Arrow</a>
             </div>
         </div>
     </>
