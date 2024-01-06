@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Footer from '@/layout/footer';
+import Sidebar from '@/layout/navbar';
 import Image from 'next/image'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,8 +12,8 @@ export default function Home() {
 
   return (
     <>
-    <div className="flex h-screen lg:bg-none bg-cover bg-iman text-black lg:text-white">
-      <div className='mx-auto flex justify-center lg:w-full lg:h-screen lg:grid lg:grid-cols-3'>
+    <div className="flex h-screen lg:bg-none bg text-black lg:text-white border border-blue-400 bg-white">
+      {/* <div className='mx-auto flex justify-center lg:w-full lg:h-screen lg:grid lg:grid-cols-3'>
         <div className='lg:m-auto lg:col-span-2 lg:w-3/5 grid grid-rows-4 lg:grid-rows-none'>
           <div></div>
           <div className=''>
@@ -41,7 +42,10 @@ export default function Home() {
         </div>
         <div className='hidden lg:block lg:col-span-1 lg:bg-iman lg:bg-cover'></div>
       </div>
-      <Footer />
+      <Footer /> */}
+      {/* <Button className='w-full' onClick={() => {setIsCollapse(!isCollapse)}}>Iman</Button> */}
+
+      <Sidebar />
     </div>
     </>
   )

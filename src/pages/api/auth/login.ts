@@ -11,7 +11,6 @@ export default async function login (req: NextApiRequest, res: NextApiResponse) 
      */
     const API_URL = process.env.NEXT_PUBLIC_API_URL
     if (req.method === 'POST'){
-        console.log(req.body)
         return await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
