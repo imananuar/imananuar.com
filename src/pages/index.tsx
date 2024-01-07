@@ -11,7 +11,7 @@ export default function Main() {
   return (
     <>
       <Head>
-        <title>Iman Anuar</title>
+        <title>Sakuhin-shu</title>
       </Head>
       <main className={``}>
         <div className="">

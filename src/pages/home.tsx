@@ -44,8 +44,24 @@ export default function Home() {
       </div>
       <Footer /> */}
       {/* <Button className='w-full' onClick={() => {setIsCollapse(!isCollapse)}}>Iman</Button> */}
-
+      <div className='my-auto mx-auto'>
+        <div className='text-black'>
+          <h1 className='mb-2 text-8xl flex justify-center'>作品集</h1>
+          <h1 className='flex justify-center mb-2 text-2xl italic'>Sakuhin-shū</h1>
+          <p className='flex justify-center my-4 lg:my-5 text-xl italic'>Collection of Works</p>
+          <p>(I want to put some animation but maybe later...)</p>
+        </div>
+      </div>
       <Sidebar />
+      <div className='absolute md:right-0'>
+        <Link href="/login">
+          <Button variant={'secondary'} size="md" className='border-none m-3 hover:border hover:bg-transparent hover:text-neutral-800 hover:underline hover:underline-offset-4'>Login</Button>
+        </Link>
+        <Link href="/signup">
+          <Button variant={'secondary'} size="md" className='m-3 ml-0 invisible md:visible'>Sign Up</Button>
+        </Link>
+      </div>
+      {/* <Button className='absolute right-0 w'>Login</Button> */}
     </div>
     </>
   )

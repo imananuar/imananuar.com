@@ -69,7 +69,7 @@ export default function Sidebar() {
                     }
                 </ul>
                 <div className="flex-grow flex flex-col justify-end">
-                    <div className="md:flex md:justify-between">
+                    <div className="flex justify-between">
                         <Link href={"https://google.com"} className=" flex w-full hover:bg-pastel-yellow fill-white hover:fill-black py-4">
                             <div className=" flex w-full">
                                 <WhatsappIcon width={30} height={30} className="mx-auto"/>
