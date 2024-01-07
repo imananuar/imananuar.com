@@ -43,7 +43,7 @@ export default function Sidebar() {
             <nav className={`flex flex-col transition-width duration-300 ease-in ${isCollapse ? 'w-full' : 'w-0'} overflow-hidden bg-neutral-800`}>
                 <div className="ml-8 py-4">
                     <Image
-                        src="/../public/profile.jpg"
+                        src="/profile.jpg"
                         width={80}
                         height={80}
                         alt="Majutsu no Index picture"
