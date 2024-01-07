@@ -55,7 +55,8 @@ module.exports = {
         },
         custom: {
           primary: "rgb(214,201,193)"
-        }
+        },
+        "pastel-yellow": "rgb(252,250,242)"        
       },
       borderRadius: {
         lg: "var(--radius)",
